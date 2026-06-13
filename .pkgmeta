@@ -1,0 +1,17 @@
+package-as: TargetedCasts
+enable-nolib-creation: no
+
+wago-id: aNDMao6o
+curse-id: 1574620
+
+ignore:
+    - .env
+    - .env.example
+    - README.md
+    - CHANGELOG.md
+    - .git/
+    - .github/
+    - .vscode/
+    - .release/
+    - .pkgmeta
+    - Libraries/LibStub/tests/
