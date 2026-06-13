@@ -1,0 +1,16 @@
+## Interface: 120000, 120001, 120005, 120007
+## Title: Targeted Casts
+## Notes: Floating cast bars + sound alert when hostile mobs cast spells targeting you.
+## Author: Zapa
+## Version: 1.0
+## Category-enUS: |cFF9CDF95Zapa|r Development
+## SavedVariables: TargetedCastsDB
+## OptionalDeps: Ace3, AceGUI-3.0-SharedMediaWidgets, LibSharedMedia-3.0
+## X-Embeds: Ace3, AceGUI-3.0-SharedMediaWidgets, LibSharedMedia-3.0
+
+Libraries/Init.xml
+
+TargetedCasts.lua
+TC_Detection.lua
+TC_BarUI.lua
+TC_Settings.lua
