@@ -359,10 +359,11 @@ local function buildSettings(container)
   outline:SetList({
     [""]              = "None",
     ["OUTLINE"]       = "Outline",
+    ["OUTLINE, SLUG"] = "Outline (Slug)",
     ["THICKOUTLINE"]  = "Thick Outline",
     ["MONOCHROME"]    = "Monochrome",
-  }, { "", "OUTLINE", "THICKOUTLINE", "MONOCHROME" })
-  outline:SetValue(db.fontOutline or "OUTLINE")
+  }, { "", "OUTLINE", "OUTLINE, SLUG", "THICKOUTLINE", "MONOCHROME" })
+  outline:SetValue(db.fontOutline or "OUTLINE, SLUG")
   outline:SetRelativeWidth(0.5)
   outline:SetCallback("OnValueChanged", function(_, _, value)
     db.fontOutline = value
