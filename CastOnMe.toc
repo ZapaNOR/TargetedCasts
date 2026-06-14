@@ -1,10 +1,10 @@
 ## Interface: 120000, 120001, 120005, 120007
-## Title: Targeted Casts
+## Title: Cast on Me
 ## Notes: Floating cast bars + sound alert when hostile mobs cast spells targeting you.
 ## Author: Zapa
-## Version: 1.0.1
+## Version: 1.5
 ## Category-enUS: |cFF9CDF95Zapa|r Development
-## SavedVariables: TargetedCastsDB
+## SavedVariables: CastOnMeDB, TargetedCastsDB
 ## X-Wago-ID: aNDMao6o
 ## X-Curse-Project-ID: 1574620
 ## OptionalDeps: Ace3, AceGUI-3.0-SharedMediaWidgets, LibSharedMedia-3.0
@@ -12,7 +12,7 @@
 
 Libraries/Init.xml
 
-TargetedCasts.lua
-TC_Detection.lua
-TC_BarUI.lua
-TC_Settings.lua
+CastOnMe.lua
+COM_Detection.lua
+COM_BarUI.lua
+COM_Settings.lua

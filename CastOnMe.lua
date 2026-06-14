@@ -23,9 +23,18 @@ M.Defaults = {
   position = { point = "CENTER", x = 0, y = 0 },
 }
 
+-- Migration from the pre-rename SavedVariables global. Once CastOnMeDB has
+-- been written at least once, TargetedCastsDB stays nil and this is a no-op.
+local function MigrateLegacyDB()
+  if CastOnMeDB or type(TargetedCastsDB) ~= "table" then return end
+  CastOnMeDB = TargetedCastsDB
+  TargetedCastsDB = nil
+end
+
 function M:EnsureDefaults()
-  TargetedCastsDB = TargetedCastsDB or {}
-  local db = TargetedCastsDB
+  MigrateLegacyDB()
+  CastOnMeDB = CastOnMeDB or {}
+  local db = CastOnMeDB
   local function fill(target, defaults)
     for key, default in pairs(defaults) do
       if type(default) == "table" then
@@ -40,7 +49,7 @@ function M:EnsureDefaults()
 end
 
 function M:DB()
-  return TargetedCastsDB
+  return CastOnMeDB
 end
 
 local eventFrame = CreateFrame("Frame")
@@ -59,8 +68,8 @@ eventFrame:SetScript("OnEvent", function(_, event)
   end
 end)
 
-SLASH_TARGETEDCASTS1 = "/tc"
-SLASH_TARGETEDCASTS2 = "/targetedcasts"
-SlashCmdList["TARGETEDCASTS"] = function()
+SLASH_CASTONME1 = "/com"
+SLASH_CASTONME2 = "/castonme"
+SlashCmdList["CASTONME"] = function()
   if M.OpenSettings then M:OpenSettings() end
 end

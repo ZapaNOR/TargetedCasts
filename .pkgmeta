@@ -1,4 +1,4 @@
-package-as: TargetedCasts
+package-as: CastOnMe
 enable-nolib-creation: no
 
 wago-id: aNDMao6o

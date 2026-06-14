@@ -6,7 +6,7 @@ local AG = LibStub and LibStub("AceGUI-3.0", true)
 local LSM = LibStub and LibStub("LibSharedMedia-3.0", true)
 local isGUIOpen = false
 
-M._settingsCategoryName = "Targeted Casts"
+M._settingsCategoryName = "Cast on Me"
 
 -- Sound category labels for keys that need relabeling; others fall through
 -- to the raw CooldownViewerSoundData key (Animals, Devices, Impacts, etc.).
@@ -38,7 +38,7 @@ local function setupSoundDropdown(dropdown, getValue, setValue)
   end)
 
   dropdown:SetupMenu(function(_, rootDescription)
-    rootDescription:SetTag("TARGETEDCASTS_SOUND")
+    rootDescription:SetTag("CASTONME_SOUND")
 
     local function addSoundButton(description, label, soundEnum)
       description:CreateButton(label, function() setValue(soundEnum) end)
@@ -83,12 +83,12 @@ end
 -- Color picker (deferred-commit)
 -- =========================
 local function ensureColorPickerCloseHook()
-  if M._tcColorPickerCloseHooked then return end
+  if M._comColorPickerCloseHooked then return end
   local pickerFrame = _G.ColorPickerFrame
   if not (pickerFrame and type(pickerFrame.HookScript) == "function") then return end
   local function flushPending()
-    local commit = M._tcPendingColorCommit
-    M._tcPendingColorCommit = nil
+    local commit = M._comPendingColorCommit
+    M._comPendingColorCommit = nil
     if type(commit) == "function" then commit() end
   end
   pickerFrame:HookScript("OnHide", function()
@@ -98,7 +98,7 @@ local function ensureColorPickerCloseHook()
       flushPending()
     end
   end)
-  M._tcColorPickerCloseHooked = true
+  M._comColorPickerCloseHooked = true
 end
 
 local function addColorPicker(container, label, getValue, setValue, hasAlpha)
@@ -120,10 +120,10 @@ local function addColorPicker(container, label, getValue, setValue, hasAlpha)
     hasPending = true
     local pickerFrame = _G.ColorPickerFrame
     if pickerFrame and pickerFrame:IsShown() then
-      M._tcPendingColorCommit = commitPending
+      M._comPendingColorCommit = commitPending
     else
-      if M._tcPendingColorCommit == commitPending then
-        M._tcPendingColorCommit = nil
+      if M._comPendingColorCommit == commitPending then
+        M._comPendingColorCommit = nil
       end
       commitPending()
     end
@@ -131,8 +131,8 @@ local function addColorPicker(container, label, getValue, setValue, hasAlpha)
   cp:SetCallback("OnValueConfirmed", function(_, _, nr, ng, nb, na)
     pendingR, pendingG, pendingB, pendingA = nr, ng, nb, na
     hasPending = true
-    if M._tcPendingColorCommit == commitPending then
-      M._tcPendingColorCommit = nil
+    if M._comPendingColorCommit == commitPending then
+      M._comPendingColorCommit = nil
     end
     commitPending()
   end)
@@ -165,7 +165,7 @@ local function buildSettings(container)
   local generalGroup = makeGroup(container, "General")
 
   local enableBox = AG:Create("CheckBox")
-  enableBox:SetLabel("Enable Targeted Cast Bars")
+  enableBox:SetLabel("Enable Cast on Me Bars")
   enableBox:SetValue(db.enabled ~= false)
   enableBox:SetFullWidth(true)
   enableBox:SetCallback("OnValueChanged", function(_, _, value)
@@ -470,7 +470,7 @@ end
 -- =========================
 function M:OpenSettings()
   if not AG then
-    print("|cFF9CDF95Targeted|rCasts: AceGUI-3.0 failed to load (broken install?).")
+    print("|cFF9CDF95Cast on|r Me: AceGUI-3.0 failed to load (broken install?).")
     return
   end
 
@@ -495,7 +495,7 @@ function M:CreateSettingsWindow()
   isGUIOpen = true
 
   local frame = AG:Create("Frame")
-  frame:SetTitle("Targeted Casts")
+  frame:SetTitle("Cast on Me")
   frame:SetLayout("Fill")
   frame:SetWidth(520)
   frame:SetHeight(720)
@@ -536,13 +536,13 @@ function M:CreateSettingsPanel()
 
   local title = panel:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
   title:SetPoint("TOPLEFT", 16, -16)
-  title:SetText("Targeted Casts")
+  title:SetText("Cast on Me")
 
   local desc = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
   desc:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -8)
   desc:SetWidth(520)
   desc:SetJustifyH("LEFT")
-  desc:SetText("Settings open in a separate window. Use the button below or type /tc.")
+  desc:SetText("Settings open in a separate window. Use the button below or type /com.")
 
   local btn = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
   btn:SetSize(200, 24)

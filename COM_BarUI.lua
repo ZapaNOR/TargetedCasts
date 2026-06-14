@@ -281,7 +281,7 @@ end
 
 local function createContainer()
   if container then return container end
-  container = CreateFrame("Frame", "TargetedCastsContainer", UIParent)
+  container = CreateFrame("Frame", "CastOnMeContainer", UIParent)
   container:SetFrameStrata("MEDIUM")
   container:SetMovable(true)
   container:SetClampedToScreen(true)

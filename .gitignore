@@ -1,3 +1,4 @@
 .env
 /.release/*.zip
 /.release/TargetedCasts
+/.release/CastOnMe
